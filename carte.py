@@ -58,8 +58,8 @@ class Carte:
             if layer.name in self.collision_layers:
                 for x, y, image in layer.tiles():
                     # print(f'Le layer : {layer.name} va créer les sprites de collision')
-                    image = pygame.transform.scale(image, (self.tilewidth, self.tileheight))
-                    self.collision_tiles.append(CollisionTile(image, (x*self.tilewidth, y * self.tileheight), groups))
+                    image = pygame.transform.scale(image, (self.get_tilewidth(), self.get_tileheight()))
+                    self.collision_tiles.append(CollisionTile(image, (x*self.get_tilewidth(), y * self.get_tileheight()), groups))
 
     def get_layers(self):
         layer_list = []

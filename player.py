@@ -24,10 +24,6 @@ class Player(Caracter):
     
     def input(self):
         keys = pygame.key.get_pressed()
-        mouse = pygame.mouse.get_pressed()
-        
-        if mouse[0] and (self.get_ticks() - self.last_shot > self.cooldown_attack):
-            self.shoot()
         
         if keys[pygame.K_z] or keys[pygame.K_s] or keys[pygame.K_d] or keys[pygame.K_q]:
             if keys[pygame.K_z]:
@@ -56,14 +52,10 @@ class Player(Caracter):
             self.direction.y = 0
             self.is_moving = False
             self.animation_index = 0
-
-    def shoot(self):
-        Projectile(self, [sprites.projectile_sprites] + list(sprites.camera_groups.values()))
-        self.last_shot = pygame.time.get_ticks()  # on enregistre le temps du dernier tir
-        self.is_attack = True
         
     def update(self, dt):
         self.old_rect = self.rect.copy()
+        self.feet.midbottom = self.rect.midbottom
         self.input()
         self.apply_collisions(dt)
         self.animation_state()

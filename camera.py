@@ -111,6 +111,8 @@ class CameraGroup(pygame.sprite.Group):
         for sprite in self.sprites():
             pygame.draw.rect(self.screen, '#ff0000', translate_pos_with_offset(sprite.rect, self.offset), 5)
             pygame.draw.rect(self.screen, '#00ff00', translate_pos_with_offset(sprite.old_rect, self.offset), 5)
+            if hasattr(sprite, "feet"):
+                pygame.draw.rect(self.screen, '#ffff00', translate_pos_with_offset(sprite.feet, self.offset), 5)
             pygame.draw.circle(self.screen, '#fd5a61', sprite.get_pos() - self.offset, 5)
             sprite.image.fill('#0000ff')
             pygame.draw.rect(self.screen, 'yellow', translate_pos_with_offset(self.camera_rect, self.offset), 5)

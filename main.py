@@ -10,6 +10,7 @@ from items import Item
 from random import randint
 from pnj import *
 from menu_marchand import *
+from dialog import DialogBox
 
 pygame.init()
 
@@ -19,9 +20,12 @@ clock = pygame.time.Clock()
 
 # Saves
 menu = Menu()
-menu_marchand = Menu_Marchand()
 sprites.player = menu.run()
 last_save_time = pygame.time.get_ticks()
+
+# Dialogues
+dialogs_Emma_box = DialogBox(["Nique les arabes", "Paul : Aller ptit café", "Etienne, très bon gars", "Vive Dane et me mafé"])
+Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Salon"], sprites.pnj_group])
 
 # Type camera
 sprites.camera_group.set_type_camera("center")
@@ -61,16 +65,9 @@ while True:
                 if event.key == pygame.K_a and sprites.player.rect.colliderect(sprite.rect):
                     sprite.remove_object(sprites.items_drop)
 
-            if event.key == pygame.K_1:
-                items_old = sprites.save_data.load_inventory()
-                num_potion = items_old.count("potion")
-                if num_potion >= 1:
-                    sprites.player.set_HP((int(sprites.player.get_HP() * 1.6)))
-                    if sprites.player.get_HP() > sprites.player.get_max_HP():
-                        sprites.player.regenerate()
-                    sprites.save_data.remove_item_from_inventory("potion")
-                    items = sprites.save_data.load_inventory()
-                    sprites.save_data.save_inventory(items)
+            if event.key == pygame.K_SPACE:
+                dialogs_Emma_box.next_text()
+                
 
     # Background color depends of the map
     dungeon_bg = ['Dungeon']
@@ -90,9 +87,9 @@ while True:
         sprites.camera_group.carte.game_over()
         sprites.player = menu.run()
 
-
     sprites.camera_group.update(dt)
     sprites.camera_group.custom_draw(sprites.player)
+    dialogs_Emma_box.render()
 
     # Permettre de debuger les sprites
     # sprites.camera_group.debug()

@@ -35,14 +35,15 @@ class Caracter(pygame.sprite.Sprite):
         self.animation_index = 0
         self.animation_direction = "Bottom Walk"
         self.image = self.frames[self.animation_direction][self.animation_index]
-        self.image = self.transform_scale()
-        self.animation_speed = 0.5
+
+        self.animation_speed = 0.25
         self.is_moving = False
         self.is_attack = False
 
         # Rectangle
         self.rect = self.image.get_rect(midbottom = pos)
         self.old_rect = self.rect.copy()
+        self.feet = pygame.Rect(0, 0, self.rect.width * 0.5, 12)
 
         # Screen
         self.screen = pygame.display.get_surface()
@@ -89,6 +90,10 @@ class Caracter(pygame.sprite.Sprite):
     def get_range(self):
         """Permet de récupérer la range du caractère"""
         return self.range
+    
+    def set_animation_direction(self, new_value):
+        """Changer la direction de l'animation"""
+        self.animation_direction = new_value
     
     def set_cooldown_attack(self, new_value):
         """Changer le cooldown avec la nouvelle valeur new_value"""
@@ -261,6 +266,9 @@ class Caracter(pygame.sprite.Sprite):
             self.is_animating = False
 
 
+            
+    def update(self):
+        self.feet.midbottom = self.rect.midbottom
             
     def debug(self):
         pygame.draw.rect(self.screen, '#ff0000', self.rect, 5)
