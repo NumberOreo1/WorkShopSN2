@@ -65,27 +65,14 @@ while True:
                 if event.key == pygame.K_a and sprites.player.rect.colliderect(sprite.rect):
                     sprite.remove_object(sprites.items_drop)
 
+        if event.type == get
+
             if event.key == pygame.K_SPACE:
-                dialogs_Emma_box.next_text()
+                dialogs_Emma_box.execute()
                 
 
     # Background color depends of the map
-    dungeon_bg = ['Dungeon']
-    overworld_bg = ['Overworld', 'Swamp', 'Waterfall', 'Watertemple', 'Castle']
-    watertemple_bg = ['Watertemple']
-    salon_bg = ['Salon']
-    if sprites.camera_group.carte.map_name in dungeon_bg:
-        screen.fill('#1f1f1f') #Map Dungeon
-    elif sprites.camera_group.carte.map_name in overworld_bg:
-        screen.fill('#71ddee') #Map overworld
-    elif sprites.camera_group.carte.map_name in watertemple_bg:
-        screen.fill('#1e7cb8')
-    elif sprites.camera_group.carte.map_name in salon_bg:
-        screen.fill('#000000')
-
-    if not sprites.player.is_alive():
-        sprites.camera_group.carte.game_over()
-        sprites.player = menu.run()
+    screen.fill('#000000')
 
     sprites.camera_group.update(dt)
     sprites.camera_group.custom_draw(sprites.player)

@@ -21,7 +21,7 @@ class Menu:
             # bouton_mage = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 400, largeur_bouton, 50)
             # bouton_assassin = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 500, largeur_bouton, 50)
             # bouton_guard = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 600, largeur_bouton, 50)
-            bouton_archer = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 700, largeur_bouton, 50)
+            # bouton_archer = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 700, largeur_bouton, 50)
             bouton_start = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 800, largeur_bouton, 50)
             # bouton_tank = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 800, largeur_bouton, 50)
             
@@ -77,13 +77,13 @@ class Menu:
                             self.save_data.save_player_life(player.get_HP())
                             return player
                         
-                        elif bouton_archer.collidepoint(pygame.mouse.get_pos()):
-                            player = Archer("Ray Sist", camera_group.carte.get_waypoint('Spawn'), [player_sprite] + list(camera_groups.values()))
-                            player_position = {"x": player.pos.x, "y": player.pos.y}
-                            self.save_data.save_player_position(player_position)
-                            self.save_data.save_player_map(camera_group.carte.map_name)
-                            self.save_data.save_player_life(player.get_HP())
-                            return player
+                        # elif bouton_archer.collidepoint(pygame.mouse.get_pos()):
+                        #     player = Archer("Ray Sist", camera_group.carte.get_waypoint('Spawn'), [player_sprite] + list(camera_groups.values()))
+                        #     player_position = {"x": player.pos.x, "y": player.pos.y}
+                        #     self.save_data.save_player_position(player_position)
+                        #     self.save_data.save_player_map(camera_group.carte.map_name)
+                        #     self.save_data.save_player_life(player.get_HP())
+                        #     return player
                         
                         # elif bouton_tank.collidepoint(pygame.mouse.get_pos()):
                         #     player = Tank("Ray Sist", camera_group.carte.get_waypoint('Spawn'), [player_sprite] + list(camera_groups.values()))
@@ -145,8 +145,8 @@ class Menu:
             # if self.class_joueur['Class'] == 'Guard':
             #     player = Guard("Ray Sist", camera_group.carte.get_waypoint('Spawn'), [player_sprite] + list(camera_groups.values()))
 
-            # if self.class_joueur['Class'] == 'Archer':
-            #     player = Archer("Ray Sist", camera_group.carte.get_waypoint('Spawn'), [player_sprite] + list(camera_groups.values()))
+            if self.class_joueur['Class'] == 'Archer':
+                player = Archer("Ray Sist", camera_group.carte.get_waypoint('Spawn'), [player_sprite] + list(camera_groups.values()))
 
             # if self.class_joueur['Class'] == 'Tank':
             #     player = Tank("Ray Sist", camera_group.carte.get_waypoint('Spawn'), [player_sprite] + list(camera_groups.values()))
