@@ -35,7 +35,7 @@ class Caracter(pygame.sprite.Sprite):
         self.animation_index = 0
         self.animation_direction = "Bottom Walk"
         self.image = self.frames[self.animation_direction][self.animation_index]
-
+        self.image = self.transform_scale()
         self.animation_speed = 0.25
         self.is_moving = False
         self.is_attack = False

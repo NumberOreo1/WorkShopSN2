@@ -15,12 +15,16 @@ class DialogBox:
         self.font = pygame.font.Font('graphics/font/Enchanted_Land.otf', 50)
         self.reading = False
         
+    def open_dialog(self):
+        self.reading = True
+        self.text_index = 0
+    
     def execute(self):
         if self.reading:
             self.next_text()
-        else:
-            self.reading = True
-            self.text_index = 0
+        # else:
+        #     self.reading = True
+        #     self.text_index = 0
         
     def render(self):
         if self.reading:

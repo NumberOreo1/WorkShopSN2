@@ -98,8 +98,7 @@ class Emma(Pnj):
         self.set_defense_value(100000)
         self.set_cooldown_attack(8000000)
         self.set_speed(0)
-        self.animation_direction = "Left Walk"
-        # self.set_pos(sprites.camera_group.carte.get_waypoint('SpawnEmma'))
+        self.set_pos(sprites.camera_group.carte.get_waypoint('SpawnEmma'))
         
     def update(self, dt):
         self.old_rect = self.rect.copy()

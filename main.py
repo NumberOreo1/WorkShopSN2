@@ -24,7 +24,7 @@ sprites.player = menu.run()
 last_save_time = pygame.time.get_ticks()
 
 # Dialogues
-dialogs_Emma_box = DialogBox(["Nique les arabes", "Paul : Aller ptit café", "Etienne, très bon gars", "Vive Dane et me mafé"])
+dialogues_Emma = DialogBox(["Nique les arabes", "Paul : Aller ptit café", "Etienne, très bon gars", "Vive Dane et me mafé"])
 Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Salon"], sprites.pnj_group])
 
 # Type camera
@@ -65,22 +65,25 @@ while True:
                 if event.key == pygame.K_a and sprites.player.rect.colliderect(sprite.rect):
                     sprite.remove_object(sprites.items_drop)
 
-        if event.type == get
 
             if event.key == pygame.K_SPACE:
-                dialogs_Emma_box.execute()
-                
-
+                dialogues_Emma.execute()
+    
+    if not dialogues_Emma.reading:
+        if pygame.sprite.spritecollide(sprites.player, sprites.pnj_group, False):
+            dialogues_Emma.open_dialog()
+    
     # Background color depends of the map
     screen.fill('#000000')
 
     sprites.camera_group.update(dt)
     sprites.camera_group.custom_draw(sprites.player)
-    dialogs_Emma_box.render()
 
     # Permettre de debuger les sprites
-    # sprites.camera_group.debug()
+    sprites.camera_group.debug()
 
+    dialogues_Emma.render()
+    
     # Sauvegarde la position du joueur toutes les 5 secondes
     current_time = pygame.time.get_ticks()
     if current_time - last_save_time > 5000:
