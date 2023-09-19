@@ -80,7 +80,7 @@ while True:
     sprites.camera_group.custom_draw(sprites.player)
 
     # Permettre de debuger les sprites
-    sprites.camera_group.debug()
+    # sprites.camera_group.debug()
 
     dialogues_Emma.render()
     

@@ -22,7 +22,7 @@ class Menu:
             # bouton_assassin = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 500, largeur_bouton, 50)
             # bouton_guard = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 600, largeur_bouton, 50)
             # bouton_archer = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 700, largeur_bouton, 50)
-            bouton_start = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 800, largeur_bouton, 50)
+            bouton_start = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 300, largeur_bouton, 50)
             # bouton_tank = pygame.Rect((self.screen.get_width() - largeur_bouton) / 2, 800, largeur_bouton, 50)
             
             while True:
