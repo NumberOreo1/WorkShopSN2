@@ -7,10 +7,8 @@ from player import *
 from ennemy import *
 from menu import Menu
 from items import Item
-from random import randint
 from pnj import *
 from menu_marchand import *
-from dialog import DialogBox
 
 pygame.init()
 
@@ -24,8 +22,11 @@ sprites.player = menu.run()
 last_save_time = pygame.time.get_ticks()
 
 # Dialogues
-dialogues_Emma = DialogBox(["Nique les arabes", "Paul : Aller ptit café", "Etienne, très bon gars", "Vive Dane et me mafé"])
-Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Salon"], sprites.pnj_group])
+# dialogues_Emma_salon = DialogBox(["Salut, utilisateur n°6542.", "Je m'appelle Emma, et je serais ton guide. ", "Ton objectif sera de trouver dans mon ordinateur une donnée sensible.", "Pour cela, tu vas devoir rentrer dans mon ordinateur.", "Ne t'inquiète pas, je serais là pour te guider.", "Bon courage."])
+salon_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Salon"], sprites.pnj_group])
+teleporter_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Teleporter"], sprites.pnj_group])
+firewall_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Firewall"], sprites.pnj_group])
+server_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Server"], sprites.pnj_group])
 
 # Type camera
 sprites.camera_group.set_type_camera("center")
@@ -67,11 +68,15 @@ while True:
 
 
             if event.key == pygame.K_SPACE:
-                dialogues_Emma.execute()
+                sprites.camera_group.messages.execute()
+                # dialogues_Emma_salon.execute()
     
-    if not dialogues_Emma.reading:
+    # if not dialogues_Emma_salon.reading:
+    #     if pygame.sprite.spritecollide(sprites.player, sprites.pnj_group, False):
+    #         dialogues_Emma_salon.open_dialog()
+    if not sprites.camera_group.messages.reading:
         if pygame.sprite.spritecollide(sprites.player, sprites.pnj_group, False):
-            dialogues_Emma.open_dialog()
+            sprites.camera_group.messages.open_dialog()
     
     # Background color depends of the map
     screen.fill('#000000')
@@ -82,7 +87,7 @@ while True:
     # Permettre de debuger les sprites
     # sprites.camera_group.debug()
 
-    dialogues_Emma.render()
+    sprites.camera_group.messages.render()
     
     # Sauvegarde la position du joueur toutes les 5 secondes
     current_time = pygame.time.get_ticks()
@@ -92,6 +97,7 @@ while True:
         sprites.save_data.save_player_map(sprites.camera_group.carte.map_name)
         sprites.save_data.save_player_life(sprites.player.get_HP())
         last_save_time = current_time
+        
 
     # print(sprites.player)
     pygame.display.update()

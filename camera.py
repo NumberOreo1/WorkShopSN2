@@ -6,7 +6,7 @@ from ennemy import Ennemy
 from player import Player
 
 class CameraGroup(pygame.sprite.Group):
-    def __init__(self, name_map, list_teleporters, layers_obstacles):
+    def __init__(self, name_map, list_teleporters, layers_obstacles, messages):
         super().__init__()
         self.screen = pygame.display.get_surface()
 
@@ -27,6 +27,9 @@ class CameraGroup(pygame.sprite.Group):
         self.carte.collision_layers = layers_obstacles[0]
         self.collision_group = layers_obstacles[1]
         self.carte.create_collisions([self, self.collision_group])
+        
+        #Messages de la salle
+        self.messages = messages
         
         # Box setup
         self.camera_borders = {'left' : 300, 'right' : 300, 'top' : 200, 'bottom' : 200}
