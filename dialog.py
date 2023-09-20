@@ -10,8 +10,8 @@ class DialogBox:
         self.nom_perso = nom_perso
         self.box = pygame.image.load('graphics/dialog/dialog_box.png')
         self.box = pygame.transform.scale(self.box, (1200, 150))
-        # self.pnj = pygame.image.load(f'graphics/caracters/pnj/{self.nom_perso}.png')
-        # self.pnj = pygame.transform.scale(self.pnj, (120, 150))
+        self.pnj = pygame.image.load(f'graphics/caracters/pnj/{self.nom_perso}.png')
+        self.pnj = pygame.transform.scale(self.pnj, (120, 150))
         self.texts = texts
         self.text_index = 0
         self.letter_index = 0
@@ -38,7 +38,7 @@ class DialogBox:
                 self.letter_index = self.letter_index
             
             screen.blit(self.box, (self.X_POSITION, self.Y_POSITION))
-            # screen.blit(self.pnj, (self.X_POSITION-100, self.Y_POSITION))
+            screen.blit(self.pnj, (self.X_POSITION-100, self.Y_POSITION))
             text = self.font.render(self.texts[self.text_index][0:self.letter_index], False, (0, 0, 0))
             screen.blit(text, (self.X_POSITION + 80, self.Y_POSITION + 10))
         

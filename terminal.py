@@ -21,6 +21,8 @@ class CMD:
         self.curseur_timer = time.time()
 
         self.menu_ouvert = False
+        
+        self.is_good = False
 
     def ouvrir_menu(self):
         self.menu_ouvert = True
@@ -39,7 +41,7 @@ class CMD:
 
         for resultat in nmap_resultats:
             self.historique.append(resultat)
-            time.sleep(1)  # Pause d'une seconde pour simuler le chargement
+            time.sleep(0.5)  # Pause d'une seconde pour simuler le chargement
             self.fenetre.fill(self.noir)
             self.afficher_console()
             pygame.display.flip()
@@ -60,27 +62,30 @@ class CMD:
             self.curseur_timer = time.time()
 
         if self.curseur_visible:
-            curseur_x = 130+ self.police.size(ligne_actuelle[:len(self.texte) + 2])[0]
+            curseur_x = 130 + self.police.size(ligne_actuelle[:len(self.texte) + 2])[0]
             pygame.draw.line(self.fenetre, self.blanc, (curseur_x, self.hauteur - 50), (curseur_x, self.hauteur - 10), 2)
 
     def run(self):
         running = True
+        self.ouvrir_menu()
+        
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     running = False
-                elif event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
-                        if self.menu_ouvert:
-                            self.fermer_menu()
-                        else:
-                            self.ouvrir_menu()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_ESCAPE:
+                        running = False
+                        pygame.time.wait(100)
                     elif self.menu_ouvert:
                         if event.key == pygame.K_RETURN:
                             self.historique.append(self.texte)
                             print(self.texte)  # Afficher le texte dans la console
                             if self.texte.lower() == "nmap":
                                 self.afficher_progression_nmap()
+                                self.is_good = True
+                            else:
+                                self.historique.append("Commande inconnue")
                             self.texte = ""
                         elif event.key == pygame.K_BACKSPACE:
                             self.texte = self.texte[:-1]
@@ -97,9 +102,6 @@ class CMD:
                 self.texte = ""
 
             pygame.display.flip()
-
-        pygame.quit()
-        sys.exit()
 
 if __name__ == "__main__":
     menu = CMD()

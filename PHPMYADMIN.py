@@ -70,6 +70,7 @@ class LoginPage:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
                         running = False
+                        pygame.time.wait(100)
                     elif event.key == pygame.K_RETURN or (event.key == pygame.K_KP_ENTER and self.curseur_actif == "mot_de_passe"):
                         if self.verifier_connexion():
                             self.message_connexion_reussie = "Connexion réussie!"

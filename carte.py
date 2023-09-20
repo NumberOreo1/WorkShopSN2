@@ -80,7 +80,7 @@ class Carte:
 
     def create_interaction(self, name_interaction, groups):
         obj = self.get_obj('Waypoints', name_interaction)
-        return Interaction(obj, groups)
+        return Interaction(obj, groups, name_interaction)
 
     def get_pos_obj(self, obj):
         return int(obj.x * scale), int(obj.y * scale)
@@ -147,8 +147,9 @@ class Carte:
     
 class Interaction(pygame.sprite.Sprite):
     type = 'Interaction'
-    def __init__(self, obj, groups):
+    def __init__(self, obj, groups, name_interaction):
         super().__init__(groups)
+        self.name = name_interaction
         self.obj = obj
         self.image = pygame.Surface((self.obj.width * scale, self.obj.height * scale))
         self.rect = self.image.get_rect(topleft = (self.obj.x * scale, self.obj.y * scale))

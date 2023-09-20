@@ -80,8 +80,18 @@ while True:
             if event.key == pygame.K_SPACE:
                 sprites.camera_group.messages.execute()
                 
-            if event.key == pygame.K_e and sprites.player.rect.colliderect(sprites.camera_group.interaction.rect):
-                cmd.run()
+            if event.key == pygame.K_a and sprites.player.rect.colliderect(sprites.camera_group.interaction.rect):
+                if sprites.camera_group.interaction.name == "Terminal":
+                    cmd.run()
+                    if cmd.is_good:
+                        sprites.camera_group = sprites.camera_groups["FirewallOuvert"]
+                        sprites.camera_group.messages.open_dialog()
+                    # Afficher le prochain message qui dis qu'un des ports est ouvert
+                    
+                elif sprites.camera_group.interaction.name == "BDD":
+                    login_page.run()
+                    # Afficher le prochain message qui dit que la prochaine salle se trouve dans le réseau n°3 au serveur n°13
+                
                 
                 # dialogues_Emma_salon.execute()
                 
