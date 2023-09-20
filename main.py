@@ -2,13 +2,15 @@ import pygame, sys, time, math, introduction
 from settings import *
 import sprites
 from debug import debug
-from carte import Carte
+from carte import Carte, Interaction
 from player import *
 from ennemy import *
 from menu import Menu
 from items import Item
 from pnj import *
 from menu_marchand import *
+from PHPMYADMIN import LoginPage
+from terminal import CMD
 
 pygame.init()
 
@@ -16,18 +18,17 @@ clock = pygame.time.Clock()
 
 # Création des sprites
 
+# Terminaux
+login_page = LoginPage()
+cmd = CMD()
+
 # Saves
 menu = Menu()
 sprites.player = menu.run()
 last_save_time = pygame.time.get_ticks()
 
 # Dialogues
-# dialogues_Emma_salon = DialogBox(["Salut, utilisateur n°6542.", "Je m'appelle Emma, et je serais ton guide. ", "Ton objectif sera de trouver dans mon ordinateur une donnée sensible.", "Pour cela, tu vas devoir rentrer dans mon ordinateur.", "Ne t'inquiète pas, je serais là pour te guider.", "Bon courage."])
-salon_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Salon"], sprites.pnj_group])
-teleporter_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Teleporter"], sprites.pnj_group])
-firewall_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Firewall"], sprites.pnj_group])
-server_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmma'), [sprites.camera_groups["Server"], sprites.pnj_group])
-
+salon_Emma = Emma("Emma", sprites.camera_group.carte.get_waypoint('SpawnEmmaSalon'), [sprites.camera_groups["Salon"], sprites.pnj_group], "Salon")
 # Type camera
 sprites.camera_group.set_type_camera("center")
 
@@ -38,7 +39,11 @@ while True:
     
     if sprites.player.is_teleporting:
         sprites.player.is_teleporting = False
-
+        # for Emma in sprites.pnj_group.sprites():
+        #     if Emma.map_name == sprites.camera_group.carte.map_name:
+        #         print("Emma qui est dans " + sprites.camera_group.carte.map_name + " est morte")
+        #         Emma.kill()
+    
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             player_position = {"x": sprites.player.pos.x, "y": sprites.player.pos.y}
@@ -58,6 +63,11 @@ while True:
 
             for tp in sprites.camera_group.teleporters:
                 if event.key == pygame.K_e and sprites.player.rect.colliderect(tp.rect):
+                    # for Emma in sprites.pnj_group.sprites():
+                    #     if Emma.map_name == sprites.camera_group.carte.map_name:
+                    #         print("Emma qui est dans " + sprites.camera_group.carte.map_name + " est morte")
+                    #         Emma.kill()
+
                     name_dest = tp.name_destination
                     sprites.camera_group = sprites.camera_groups[name_dest]
                     sprites.player.set_pos(sprites.camera_groups[name_dest].carte.get_waypoint(tp.name_tp_back))
@@ -69,7 +79,13 @@ while True:
 
             if event.key == pygame.K_SPACE:
                 sprites.camera_group.messages.execute()
+                
+            if event.key == pygame.K_e and sprites.player.rect.colliderect(sprites.camera_group.interaction.rect):
+                cmd.run()
+                
                 # dialogues_Emma_salon.execute()
+                
+            # if event.key == pygame.K_A and 
     
     # if not dialogues_Emma_salon.reading:
     #     if pygame.sprite.spritecollide(sprites.player, sprites.pnj_group, False):

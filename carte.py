@@ -78,6 +78,10 @@ class Carte:
         obj = self.get_obj('Waypoints', name_teleportation)
         return Teleportation(obj, name_destination, name_tp_back, groups)
 
+    def create_interaction(self, name_interaction, groups):
+        obj = self.get_obj('Waypoints', name_interaction)
+        return Interaction(obj, groups)
+
     def get_pos_obj(self, obj):
         return int(obj.x * scale), int(obj.y * scale)
 
@@ -140,6 +144,22 @@ class Carte:
             # clock.tick(60)
             
 
+    
+class Interaction(pygame.sprite.Sprite):
+    type = 'Interaction'
+    def __init__(self, obj, groups):
+        super().__init__(groups)
+        self.obj = obj
+        self.image = pygame.Surface((self.obj.width * scale, self.obj.height * scale))
+        self.rect = self.image.get_rect(topleft = (self.obj.x * scale, self.obj.y * scale))
+        self.old_rect = self.rect.copy()
+        self.pos = pygame.math.Vector2(self.rect.topleft)
+
+    def get_pos(self):
+        return self.pos
+
+    def get_type(self):
+        return type(self).type
     
 class Teleportation(pygame.sprite.Sprite):
     type = 'Teleportation'

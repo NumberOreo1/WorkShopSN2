@@ -6,7 +6,7 @@ from ennemy import Ennemy
 from player import Player
 
 class CameraGroup(pygame.sprite.Group):
-    def __init__(self, name_map, list_teleporters, layers_obstacles, messages):
+    def __init__(self, name_map, list_teleporters, layers_obstacles, messages, name_interaction):
         super().__init__()
         self.screen = pygame.display.get_surface()
 
@@ -23,6 +23,8 @@ class CameraGroup(pygame.sprite.Group):
 
         # Les Teleporters
         self.teleporters = [self.carte.create_teleportation(tp[0], tp[1], tp[2], [self]) for tp in list_teleporters]
+        self.interaction = self.carte.create_interaction(name_interaction, [self])
+        
         #Les obstacles
         self.carte.collision_layers = layers_obstacles[0]
         self.collision_group = layers_obstacles[1]
@@ -99,7 +101,7 @@ class CameraGroup(pygame.sprite.Group):
 
         # Active elements
         for sprite in sorted(self.sprites(), key = lambda sprite: sprite.rect.centery):
-            not_display = ['Teleportation', 'CollisionTile', 'EnnemiProjectile']
+            not_display = ['Teleportation', 'CollisionTile', 'EnnemiProjectile', 'Interaction']
             if not sprite.get_type() in not_display:
                 self.screen.blit(sprite.image, sprite.rect.topleft - self.offset)
                 if isinstance(sprite, Ennemy):

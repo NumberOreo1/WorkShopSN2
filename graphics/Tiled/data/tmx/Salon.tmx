@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="11">
+<map version="1.10" tiledversion="1.10.0" orientation="orthogonal" renderorder="right-down" width="128" height="128" tilewidth="16" tileheight="16" infinite="0" nextlayerid="17" nextobjectid="15">
  <tileset firstgid="1" name="pixel-cyberpunk-interior" tilewidth="16" tileheight="16" tilecount="924" columns="42">
   <image source="../../salon.png" width="672" height="352"/>
  </tileset>
@@ -1852,15 +1852,25 @@
 </data>
  </layer>
  <objectgroup id="15" name="Waypoints">
-  <object id="3" name="Spawn" x="133" y="326.5">
+  <object id="13" name="SpawnEmmaServer" x="611.333" y="292.667">
    <point/>
   </object>
-  <object id="8" name="SpawnEmma" x="462.5" y="254">
+  <object id="12" name="SpawnEmmaFirewall" x="611.333" y="294">
+   <point/>
+  </object>
+  <object id="11" name="SpawnEmmaTeleporter" x="606.667" y="289.333">
+   <point/>
+  </object>
+  <object id="8" name="SpawnEmmaSalon" x="362.5" y="202">
+   <point/>
+  </object>
+  <object id="3" name="Spawn" x="133" y="326.5">
    <point/>
   </object>
   <object id="9" name="EntranceTeleporter" x="406" y="163" width="53.5" height="45"/>
   <object id="10" name="ExitTeleporter" x="404" y="225">
    <point/>
   </object>
+  <object id="14" name="AucuneInteraction" x="530.667" y="367.333" width="48" height="35.3333"/>
  </objectgroup>
 </map>

@@ -79,9 +79,10 @@ class Pnj(Caracter):
 class Emma(Pnj):
     type = 'Sarah'
 
-    def __init__(self, name, pos, groups):
+    def __init__(self, name, pos, groups, map_name):
         super().__init__(name, pos, groups)
         self.transform_to_Emma()
+        self.map_name = map_name
 
     def transform_to_Emma(self):
         """Transformer le pnj en Sarah"""
@@ -98,7 +99,7 @@ class Emma(Pnj):
         self.set_defense_value(100000)
         self.set_cooldown_attack(8000000)
         self.set_speed(0)
-        self.set_pos(sprites.camera_group.carte.get_waypoint('SpawnEmma'))
+        # self.set_pos(sprites.camera_group.carte.get_waypoint('SpawnEmma'))
         
     def update(self, dt):
         self.old_rect = self.rect.copy()
